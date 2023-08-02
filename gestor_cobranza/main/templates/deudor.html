@@ -1,0 +1,22 @@
+{% extends "header.html" %}
+
+{% block content %}
+<h1>Detalles de Deudor: {{ cobranza.nombre }}</h1>
+
+<p>Usuario: {{ cobranza.usuario }}</p>
+<p>Fecha de captura: {{ cobranza.fecha_captura }}</p>
+<p>Nombre: {{ cobranza.nombre }}</p>
+<p>Domicilio: {{ cobranza.domicilio }}</p>
+<p>Zona: {{ cobranza.zona }}</p>
+<p>Saldo crédito: {{ cobranza.saldo_credito }}</p>
+<p>Abono semanal: {{ cobranza.abono_semanal }}</p>
+<p>Cobrador: {{ cobranza.cobrador }}</p>
+<p>Monto: {{ cobranza.monto }}</p>
+<p>Semanas atrasado: {{ cobranza.semanas_atrasado }}</p>
+<p>Saldo vencido: {{ cobranza.saldo_vencido }}</p>
+<p>Pago mínimo: {{ cobranza.pago_minimo }}</p>
+
+<a href="{% url 'agregar_pago' id=cobranza.id %}">Agregar Pago</a>
+
+
+{% endblock %}

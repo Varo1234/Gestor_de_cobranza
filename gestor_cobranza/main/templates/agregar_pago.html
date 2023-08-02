@@ -1,0 +1,50 @@
+{% extends "header.html" %}
+
+{% load static %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/location.js' %}"></script>
+<h1>Agregar Pago para {{ cobranza.nombre }}</h1>
+
+<form method="post" id="agregarPagoForm">
+    {% csrf_token %}
+    <label for="monto">Monto:</label>
+    <input id="monto" type="number" name="monto" step="0.01" required>
+    <button id="agregar_pago" type="button">Agregar Pago</button>
+</form>
+
+<h1>Pagos anteriores</h1>
+<script>
+    if (/Mobi|Android/i.test(navigator.userAgent)) {
+        document.getElementById('mapLink').href = "geo:{{ pago.latitud }},{{ pago.longitud }}";
+    }
+</script>
+<table>
+    <tr>
+        <th>Fecha</th>
+        <th>Monto</th>
+        <th>Ubicación</th>
+    </tr>
+    {% for pago in pagos %}
+    <tr>
+        <td>{{ pago.fecha }}</td>
+        <td>{{ pago.monto }}</td>
+        <td><a id="mapLink"
+               href="https://www.google.com/maps/search/?api=1&query={{ pago.latitud }},{{ pago.longitud }}">Abrir en
+            Google Maps</a>
+        </td>
+        <!--        <td><iframe-->
+        <!--    width="600"-->
+        <!--    height="450"-->
+        <!--    style="border:0"-->
+        <!--    loading="lazy"-->
+        <!--    allowfullscreen-->
+        <!--    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDAn67yU69bvoA1wTkMzuGN-l6dYGwhA8s-->
+        <!--        &q={{ pago.latitud }},{{ pago.longitud }}">-->
+        <!--</iframe>-->
+        <!--</td>-->
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
