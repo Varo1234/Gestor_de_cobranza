@@ -72,18 +72,18 @@ WSGI_APPLICATION = 'gestor_cobranza.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gestor_cobranza',
-        'USER': 'root',
-        'PASSWORD': '13300502Ceti?',
-        'HOST': 'localhost',  # O la dirección de tu servidor de base de datos
-        'PORT': '',  # Deja vacío para usar el puerto predeterminado (3306)
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'gestor_cobranza',
+    #     'USER': 'root',
+    #     'PASSWORD': '13300502Ceti?',
+    #     'HOST': 'localhost',  # O la dirección de tu servidor de base de datos
+    #     'PORT': '',  # Deja vacío para usar el puerto predeterminado (3306)
+    # }
 }
 
 # Password validation
@@ -118,7 +118,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/home/alvaro/PycharmProjects/Gestor_de_cobranza/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
