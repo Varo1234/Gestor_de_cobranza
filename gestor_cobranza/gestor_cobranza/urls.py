@@ -25,7 +25,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('subpage/', views.subpage_view, name='subpage'),
     path('change_password/', views.change_password, name='change_password'),
-    path('signup/', views.signup_view, name='signup'),
     path('cobranza/', views.cobranza_view, name='cobranza'),
     path('deudor/<int:id>/', views.deudor_detail, name='deudor_detail'),
     path('deudor/<int:id>/agregar_pago/', views.agregar_pago, name='agregar_pago'),

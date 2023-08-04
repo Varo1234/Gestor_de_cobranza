@@ -1,7 +1,28 @@
 {% extends "header.html" %}
 
 {% block content %}
-    <h2>Welcome to the Subpage</h2>
-    <p>Hola moto</p>
+    <h2>Subir archivo de cobranza</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Subir</button>
+    </form>
+    <hr>
+    <h2>Archivos subidos anteriormente</h2>
+    {% for file in files %}
+        <div>
+            <a href="{{ file.file.url }}">{{ file.file.name }}</a>
+            <small>subido el {{ file.uploaded_at }}</small>
+        </div>
+    {% endfor %}
+    {% if messages %}
+        <script>
+            let messageText = "";
+            {% for message in messages %}
+                messageText += "{{ message }}\n";
+            {% endfor %}
+            alert(messageText);
+        </script>
+{% endif %}
 
 {% endblock %}

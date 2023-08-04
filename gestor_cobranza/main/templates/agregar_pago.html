@@ -24,16 +24,20 @@
     <tr>
         <th>Fecha</th>
         <th>Monto</th>
+        {% if user.is_staff %}
         <th>Ubicación</th>
+        {% endif %}
     </tr>
     {% for pago in pagos %}
     <tr>
         <td>{{ pago.fecha }}</td>
         <td>{{ pago.monto }}</td>
+        {% if user.is_staff %}
         <td><a id="mapLink"
                href="https://www.google.com/maps/search/?api=1&query={{ pago.latitud }},{{ pago.longitud }}">Abrir en
             Google Maps</a>
         </td>
+        {% endif %}
         <!--        <td><iframe-->
         <!--    width="600"-->
         <!--    height="450"-->

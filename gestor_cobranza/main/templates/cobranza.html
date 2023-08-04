@@ -9,7 +9,6 @@
       <th>Domicilio</th>
       <th>Cobrador</th>
       <th>Detalles</th>
-      <!-- Agrega el resto de los campos aquí -->
     </tr>
     {% for cobranza in cobranzas %}
       <tr>
@@ -18,7 +17,6 @@
         <td>{{ cobranza.domicilio }}</td>
         <td>{{ cobranza.usuario }}
         <td><a href="{% url 'deudor_detail' id=cobranza.id %}">Ver detalles</a></td>
-        <!-- Agrega el resto de los campos aquí -->
       </tr>
     {% endfor %}
   </table>
