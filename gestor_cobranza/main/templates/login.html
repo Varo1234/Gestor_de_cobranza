@@ -8,4 +8,14 @@
     Password: <input type="password" name="password"><br>
     <input type="submit" value="Login">
   </form>
+  {% if messages %}
+    <script>
+            let messageText = "";
+            {% for message in messages %}
+                messageText += "{{ message }}\n";
+            {% endfor %}
+            alert(messageText);
+    </script>
+  {% endif %}
+
 {% endblock %}

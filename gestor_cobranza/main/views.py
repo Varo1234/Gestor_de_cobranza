@@ -23,8 +23,8 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            # Return an 'invalid login' error message.
-            ...
+            messages.error(request, 'Usuario o contraseña inválidos.')
+            return redirect('login')
     else:
         return render(request, 'login.html')
 
