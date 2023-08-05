@@ -91,7 +91,7 @@ def deudor_detail(request, id):
     """
         Esta vista muestra los detalles de una cobranza específica.
         """
-    if request.user != Cobranza.usuario and not request.user.is_staff:
+    if request.user != Cobranza.cobrador and not request.user.is_staff:
         return redirect('home')  # O redirige a donde quieras si el usuario no tiene permiso para ver esta cobranza
     return render(request, 'deudor.html', {'cobranza': Cobranza})
 
