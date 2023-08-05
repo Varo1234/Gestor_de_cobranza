@@ -102,7 +102,7 @@ def agregar_pago(request, id):
 
 @login_required
 @user_passes_test(is_admin)
-def subpage_view(request):
+def archivos_view(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -111,7 +111,7 @@ def subpage_view(request):
             file_extension = os.path.splitext(instance.file.name)[1]
             if file_extension not in ['.xls', '.xlsx', '.xlsm', '.xlsb', '.odf', '.ods', '.odt']:
                 messages.error(request, "El archivo subido no es un archivo Excel. Por favor, sube un archivo Excel.")
-                return redirect('subpage')
+                return redirect('archivos')
 
             instance.save()
 
@@ -123,7 +123,7 @@ def subpage_view(request):
                     messages.error(request,
                                    f"El usuario {cobrador} no existe en el sistema. Por favor, registra este usuario antes de continuar.")
                     instance.delete()  # Delete the file
-                    return redirect('subpage')
+                    return redirect('archivos')
 
             # Here you can process the dataframe as you need, for example:
             for index, row in df.iterrows():
@@ -142,11 +142,11 @@ def subpage_view(request):
                     pago_minimo=row['pago_minimo'],
                 )
 
-            return redirect('subpage')
+            return redirect('archivos')
     else:
         form = UploadFileForm()
     files = UploadFile.objects.all()  # Assuming your model has a 'user' field
-    return render(request, 'subpage.html', {'form': form, 'files': files})
+    return render(request, 'archivos.html', {'form': form, 'files': files})
 
 
 @login_required

@@ -9,7 +9,7 @@
         <a href="{% url 'home' %}">Home</a> |
         {% if user.is_authenticated %}
         {% if user.is_staff %}
-        <a href="{% url 'subpage' %}">Archivos</a> |
+        <a href="{% url 'archivos' %}">Archivos</a> |
         {% endif %}
         <a href="{% url 'cobranza' %}">Cobranza</a> |
         <a href="{% url 'registro_horas' %}">Checkin</a> |
