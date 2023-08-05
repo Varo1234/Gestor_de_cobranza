@@ -131,3 +131,4 @@ SESSION_COOKIE_DOMAIN = 'gestorcobranza.run'
 SECURE_SSL_REDIRECT = False
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = ["https://gestorcobranza.run", "https://www.gestorcobranza.run"]
