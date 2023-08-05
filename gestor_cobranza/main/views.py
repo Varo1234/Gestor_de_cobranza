@@ -1,13 +1,15 @@
+import os
+import pandas as pd
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import Cobranza, Pago, UploadFile
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
+from django.utils import timezone
+
+from .models import Cobranza, Pago, UploadFile, RegistroHoras
 from .forms import UploadFileForm
-import pandas as pd
-import os
 
 
 def is_admin(user):
@@ -93,7 +95,7 @@ def agregar_pago(request, id):
             longitud=longitud,
         )
 
-        return redirect('deudor_detail', id=id)
+        # return redirect('deudor_detail', id=id)
 
     return render(request, 'agregar_pago.html', {'cobranza': cobranza, 'pagos': pagos})
 
@@ -145,3 +147,13 @@ def subpage_view(request):
         form = UploadFileForm()
     files = UploadFile.objects.all()  # Assuming your model has a 'user' field
     return render(request, 'subpage.html', {'form': form, 'files': files})
+
+
+@login_required
+def registro_horas_view(request):
+    hoy = timezone.now().date()
+    ya_registrado = RegistroHoras.objects.filter(usuario=request.user, hora_entrada__date=hoy).exists()
+    if request.method == 'POST' and not ya_registrado:
+        RegistroHoras.objects.create(usuario=request.user, hora_entrada=timezone.now())
+    registros = RegistroHoras.objects.filter(usuario=request.user).order_by('-hora_entrada')
+    return render(request, 'registro_horas.html', {'registros': registros, 'ya_registrado': ya_registrado})

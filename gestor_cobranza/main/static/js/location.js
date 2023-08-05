@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $("#agregar_pago").click(function() {
+    $("#agregarPagoForm").submit(function(event) {
+        event.preventDefault(); // Evita la acción por defecto de enviar el formulario
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(sendPosition);
         } else {
@@ -27,3 +28,4 @@ $(document).ready(function() {
         });
     }
 });
+

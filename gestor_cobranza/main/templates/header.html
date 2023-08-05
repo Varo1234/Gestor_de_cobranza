@@ -12,6 +12,7 @@
         <a href="{% url 'subpage' %}">Archivos</a> |
         {% endif %}
         <a href="{% url 'cobranza' %}">Cobranza</a> |
+        <a href="{% url 'registro_horas' %}">Checkin</a> |
         <a href="{% url 'logout' %}">Logout</a> |
         <span>{{ user.username }}</span>
         {% else %}

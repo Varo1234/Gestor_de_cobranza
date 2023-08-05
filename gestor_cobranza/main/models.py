@@ -41,3 +41,8 @@ class UploadFile(models.Model):
 
     def __str__(self):
         return f'{self.file} - {self.uploaded_at}'
+
+
+class RegistroHoras(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    hora_entrada = models.DateTimeField(auto_now_add=True)

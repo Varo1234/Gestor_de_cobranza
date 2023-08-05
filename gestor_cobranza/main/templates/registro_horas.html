@@ -1,0 +1,21 @@
+{% extends "header.html" %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" {% if ya_registrado %}disabled{% endif %}>Registrar hora de entrada</button>
+</form>
+
+<table>
+    <tr>
+        <th>Hora de Entrada</th>
+    </tr>
+    {% for registro in registros %}
+    <tr>
+        <td>{{ registro.hora_entrada }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

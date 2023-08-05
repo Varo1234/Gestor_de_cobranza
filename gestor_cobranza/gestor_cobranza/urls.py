@@ -28,5 +28,6 @@ urlpatterns = [
     path('cobranza/', views.cobranza_view, name='cobranza'),
     path('deudor/<int:id>/', views.deudor_detail, name='deudor_detail'),
     path('deudor/<int:id>/agregar_pago/', views.agregar_pago, name='agregar_pago'),
+    path('registro_horas/', views.registro_horas_view, name='registro_horas'),
 
 ]
