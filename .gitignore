@@ -1,1 +1,5 @@
 **/__pycache__/
+!/gestor_cobranza/db.sqlite3
+!/gestor_cobranza/uploads/
+!/db.sqlite3
+!/gestor_cobranza/main/migrations/
