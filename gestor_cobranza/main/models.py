@@ -46,3 +46,6 @@ class UploadFile(models.Model):
 class RegistroHoras(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     hora_entrada = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.usuario} - {self.hora_entrada}'
