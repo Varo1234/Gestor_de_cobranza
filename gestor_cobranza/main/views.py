@@ -17,6 +17,10 @@ def is_admin(user):
 
 
 def login_view(request):
+    """
+        Esta vista maneja el inicio de sesión del usuario. Autentica al usuario y,
+        si la autenticación es exitosa, redirige al usuario a la página de inicio.
+        """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -32,20 +36,27 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+        Esta vista maneja el cierre de sesión del usuario. Cierra la sesión y
+        redirige al usuario a la página de inicio de sesión.
+        """
     logout(request)
     return redirect('login')
 
 
 def home_view(request):
+    """
+        Esta vista muestra la página de inicio.
+        """
     return render(request, 'home.html')
 
 
-@login_required
-def subpage_view(request):
-    return render(request, 'subpage.html')
-
-
 def change_password(request):
+    """
+        Esta vista maneja el cambio de contraseña del usuario. Comprueba si la
+        contraseña antigua es correcta y si las nuevas contraseñas coinciden, y
+        luego cambia la contraseña.
+        """
     if request.method == 'POST':
         old_password = request.POST['old_password']
         new_password = request.POST['new_password']
@@ -64,6 +75,10 @@ def change_password(request):
 
 @login_required
 def cobranza_view(request):
+    """
+        Esta vista muestra las cobranzas. Si el usuario es un administrador,
+        muestra todas las cobranzas. Si no, muestra solo las cobranzas del usuario actual.
+        """
     if request.user.is_staff:
         cobranzas = Cobranza.objects.all()
     else:
@@ -73,12 +88,19 @@ def cobranza_view(request):
 
 @login_required
 def deudor_detail(request, id):
-    cobranza = get_object_or_404(Cobranza, id=id)  # Usa Cobranza en lugar de Deudor
-    return render(request, 'deudor.html', {'cobranza': cobranza})
+    """
+        Esta vista muestra los detalles de una cobranza específica.
+        """
+    if request.user != Cobranza.usuario and not request.user.is_staff:
+        return redirect('home')  # O redirige a donde quieras si el usuario no tiene permiso para ver esta cobranza
+    return render(request, 'deudor.html', {'cobranza': Cobranza})
 
 
 @login_required
 def agregar_pago(request, id):
+    """
+        Esta vista maneja la adición de pagos a una cobranza específica.
+        """
     cobranza = get_object_or_404(Cobranza, id=id)
     pagos = Pago.objects.filter(cobranza=cobranza)
 
@@ -103,6 +125,11 @@ def agregar_pago(request, id):
 @login_required
 @user_passes_test(is_admin)
 def archivos_view(request):
+    """
+        Esta vista maneja la subida de archivos y la creación de cobranzas a
+        partir de los datos en el archivo subido. Solo los usuarios administradores
+        pueden subir archivos.
+        """
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
@@ -145,12 +172,17 @@ def archivos_view(request):
             return redirect('archivos')
     else:
         form = UploadFileForm()
-    files = UploadFile.objects.all()  # Assuming your model has a 'user' field
+    files = UploadFile.objects.all()  # busca todos los archivos
     return render(request, 'archivos.html', {'form': form, 'files': files})
 
 
 @login_required
 def registro_horas_view(request):
+    """
+        Esta vista maneja el registro de horas de entrada del usuario. El usuario
+        puede registrar su hora de entrada una vez al día. La vista muestra todos
+        los registros de horas de entrada del usuario.
+        """
     hoy = timezone.now().date()
     ya_registrado = RegistroHoras.objects.filter(usuario=request.user, hora_entrada__date=hoy).exists()
     if request.method == 'POST' and not ya_registrado:
